@@ -1,12 +1,9 @@
 #Importamos librerías
 import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model  import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-from sklearn.metrics import accuracy_score
 
 
 #Definición de variables
