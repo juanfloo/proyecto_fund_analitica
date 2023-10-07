@@ -67,6 +67,17 @@ def procesar_datos(data):
     return scale_credit_score_int
 
 
+#TODO====================================================================================================================================
+#TODO -> Aquí comienza el código de la página
+
+st.markdown("# :orange[Quick Cash]")
+st.markdown("## Tu mejor aliado para solicitar crédito fácil y rápido")
+st.markdown('''Aquí podrás consultar de manera fácil y rápida si puedes solicitar un crédito
+            en una entidad bancaria solo con pocos datos personales y de historial crediticio.''')
+st.markdown('''Si te interesa conocer más a cerca de este proyecto, puedes consultar nuestro blog, donde
+            explicamos la construcción de esta solución web''')
+st.markdown("### Puedes ver nuestro video promocional [Aquí](https://www.google.com/?hl=es)")
+
 
 edad = st.text_input("Ingrese su edad en años", value=0)
 ingresos_anuales = st.number_input("Indique sus ingresos anuales en miles de dólares", value=1)
@@ -158,6 +169,39 @@ if st.button('calcular'):
 else:
     pass
 
+
+st.text("*Datos tratados según la política de tratamiento de datos")
+st.text("*Sus datos no serán almacenados en ninguna base de datos ni serán compartidos con ninguna entidad externa")
+
+
+footer="""<style>
+a:link , a:visited{
+color: white;
+background-color: transparent;
+text-decoration: underline;
+}
+
+a:hover,  a:active {
+color: red;
+background-color: transparent;
+text-decoration: underline;
+}
+
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: #0E1117;
+color: white;
+text-align: center;
+}
+</style>
+<div class="footer">
+<p>Desarrollado con ❤ por Quick Cash - equipo 3<a style='display: block; text-align: center;' href="https://github.com/juanfloo/proyecto_fund_analitica.git" target="_blank">Repositorio en github</a></p>
+</div>
+"""
+st.markdown(footer,unsafe_allow_html=True)
 
 # "person_age"
 # "person_income"
