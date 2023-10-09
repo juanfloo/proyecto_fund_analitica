@@ -8,8 +8,8 @@ from sklearn.model_selection import train_test_split
 
 
 #Definición de variables
-min_score = 300
-max_score = 850
+min_score = 150
+max_score = 950
 
 #Cargar los datos
 datos = pd.read_csv("credit_risk_dataset.csv", delimiter=",")
@@ -72,11 +72,11 @@ def procesar_datos(data):
 
     percentil = (suma_menores/len(prob_scores))*100
 
-    scale_credit_score_int = {
-        "credit_score_scaled": int(pandas_data.loc[0,"credit_score_scaled"]),
-        "y_pred": int(y_pred),
-        "percentil": percentil
-    }
+    scale_credit_score_int = [
+        int(pandas_data.loc[0,"credit_score_scaled"]),
+        int(y_pred),
+        percentil
+    ]
 
     return scale_credit_score_int
 
@@ -86,10 +86,10 @@ def procesar_datos(data):
 
 st.markdown("# :orange[Quick Cash]")
 st.markdown("## Tu mejor aliado para solicitar crédito fácil y rápido")
-st.markdown('''Aquí podrás consultar de manera fácil y rápida si puedes solicitar un crédito
-            en una entidad bancaria solo con pocos datos personales y de historial crediticio.''')
-st.markdown('''Si te interesa conocer más a cerca de este proyecto, puedes consultar nuestro blog, donde
-            explicamos la construcción de esta solución web''')
+st.markdown('''Esta es una pagina para que las personas puedan saber su score crediticio y conocer
+            si es probable que sea aprobado su crédito en las entidades financieras, todo de una manera
+            simple, sin salir de casa y ¡GRATIS!, para saber la información de score crediticio
+            que le podemos brindar ingrese los siguientes datos.''')
 st.markdown("### Puedes ver nuestro video promocional [Aquí](https://www.google.com/?hl=es)")
 
 
@@ -178,13 +178,29 @@ user_data = [int(edad), ingresos_anuales, tiempo_empleado, prestamo_intencion, t
 
 
 if st.button('calcular'):
-    st.text(procesar_datos(user_data))
+    st.markdown(f"## Su score es: {procesar_datos(user_data)[0]}")
+    if procesar_datos(user_data)[1] == 0:
+        st.markdown('''Según nuestro modelo, es poco probable que se le asigne un préstamo. Contáctanos para ayudarte
+                     a mejorar tu puntaje.''')
+    elif procesar_datos(user_data)[1] == 1:
+        st.markdown('''Según nuestro modelo, es probable que se le asigne un préstamo. Contáctanos para ayudarte a
+                    obtener la mejor tasa de interés para tu préstamo''')
+    st.markdown(f"### :orange[Usted se encuentra por encima del {round(procesar_datos(user_data)[2], 2)}% de la población.]")
 else:
     pass
 
+st.markdown('''**Importante:** los datos proporcionados por el usuario no serán recopilados en ninguna base de datos
+            y serán tratados con la política de tratamiento de datos existente en Colombia; recuerde que el score
+            crediticio arroja datos de 150 a 950 , si está por debajo de los 400 las probabilidades de obtener la
+            aprobación de un crédito son muy bajas; debes buscar la manera de mejorar tu historial, de 400 a 699
+            todavía te encuentras en un rango optimo y saludable con buenas probabilidades de acceder a productos
+            crediticios pero sería bueno mejorar el score, a partir de 700 traduce a un buen manejo de los créditos
+            y a buen cumplimiento, es decir que es muy probable que se le asigne un crédito.''')
 
-st.text("*Datos tratados según la política de tratamiento de datos")
-st.text("*Sus datos no serán almacenados en ninguna base de datos ni serán compartidos con ninguna entidad externa")
+st.markdown('''Si te interesa conocer más a cerca de este proyecto, puedes consultar nuestro blog, donde
+            explicamos la construcción de esta solución web
+            [Click aquí](https://analitica2023.blogspot.com/2023/09/reporte-tecnico-de-la-primera-entrega.html)''')
+
 
 
 footer="""<style>
