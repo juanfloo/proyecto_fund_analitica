@@ -39,6 +39,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 model = LogisticRegression()
 model.fit(X_train, y_train)
 
+# aquí alojamos el score de la base de datos sin los datos de usuario
+prob_scores = model.predict_proba(X)[:, 1]
+
 # Definimos la función que estandariza el credit score entre 300 y 850
 def scale_credit_score(probability, min_prob, max_prob):
     return min_prob + (max_prob-min_prob)*probability
@@ -46,6 +49,7 @@ def scale_credit_score(probability, min_prob, max_prob):
 # Definimos la función que procesa los datos ingresados por el usuario y devuelve el score credit escalado
 # y_pred es la variable respuesta del modelo que nos dice si el crédito fue aprobado o no
 def procesar_datos(data):
+    suma_menores = 0
     pandas_data = pd.DataFrame(data)
     pandas_data = pandas_data.transpose()
     pandas_data.columns = ["person_age","person_income","person_emp_length","loan_amnt", "loan_int_rate",
@@ -54,14 +58,24 @@ def procesar_datos(data):
 
     y_pred = model.predict(pandas_data)[0]
 
-    pandas_data['credit_score'] = model.predict_proba(pandas_data)[:, 1]
+    prob_score_data = model.predict_proba(pandas_data)[:, 1]
+    pandas_data['credit_score'] = prob_score_data
 
     pandas_data['credit_score_scaled'] = scale_credit_score(pandas_data['credit_score'], min_score, max_score)
     pandas_data['credit_score_scaled'] = pandas_data['credit_score_scaled'].astype(int)
 
+    for i in prob_scores:
+        if i < prob_score_data:
+            suma_menores += 1
+        else:
+            pass
+
+    percentil = (suma_menores/len(prob_scores))*100
+
     scale_credit_score_int = {
         "credit_score_scaled": int(pandas_data.loc[0,"credit_score_scaled"]),
-        "y_pred": int(y_pred)
+        "y_pred": int(y_pred),
+        "percentil": percentil
     }
 
     return scale_credit_score_int
@@ -161,7 +175,6 @@ default = verif_default(default)
 
 user_data = [int(edad), ingresos_anuales, tiempo_empleado, prestamo_intencion, tasa_interes, razon_prestamo_ingreso, tiempo_sistema, int(tipo_casa),
         int(tipo_credito), int(grado_credito), int(default)]
-
 
 
 if st.button('calcular'):
