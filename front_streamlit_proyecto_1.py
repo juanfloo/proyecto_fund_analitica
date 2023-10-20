@@ -90,7 +90,7 @@ st.markdown('''Esta es una pagina para que las personas puedan saber su score cr
             si es probable que sea aprobado su crédito en las entidades financieras, todo de una manera
             simple, sin salir de casa y ¡GRATIS!, para saber la información de score crediticio
             que le podemos brindar ingrese los siguientes datos.''')
-st.markdown("### Puedes ver nuestro video promocional [Aquí](https://www.google.com/?hl=es)")
+st.markdown("### Puedes ver nuestro video promocional [Aquí](https://www.youtube.com/watch?v=NV16V1sgtXY&ab_channel=IsabellaSaez)")
 
 
 edad = st.text_input("Ingrese su edad en años", value=0)
@@ -205,7 +205,7 @@ st.markdown('''Si te interesa conocer más a cerca de este proyecto, puedes cons
 
 footer="""<style>
 a:link , a:visited{
-color: white;
+color: blue;
 background-color: transparent;
 text-decoration: underline;
 }
