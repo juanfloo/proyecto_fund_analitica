@@ -7,6 +7,6 @@ El código de la app web puedes encontrarlo en el archivo "front_streamlit_proye
 Esperamos que pueda serte útil este código para tus proyectos.
 
 Desarrollado por:
-Juan Flórez - [juflorezo@unal.edu.co]
-Isabella Sáez - [isaez@unal.edu.co]
-Andrés Torres - [antorresc@unal.edu.co]
+Juan Flórez - [juflorezo@unal.edu.co] /n
+Isabella Sáez - [isaez@unal.edu.co] /n
+Andrés Torres - [antorresc@unal.edu.co] /n
